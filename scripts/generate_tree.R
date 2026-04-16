@@ -81,14 +81,29 @@ write.csv(result$sp.list, splist_output)
 
 phylo_tree <- read.tree(tree_output)
 
+num_tips <- length(phylo_tree$tip.label)
 max_height <- max(nodeHeights(phylo_tree))
-x_extra <- max_height * 0.3
+x_extra <- max_height * 0.45
 
-p <- ggtree(phylo_tree) + 
-  geom_tiplab(size = 3, align = TRUE, offset = 0.5) + 
+p <- ggtree(phylo_tree, size = 0.8, color = "grey30") + 
+  geom_tiplab(
+    size = 5, 
+    align = TRUE, 
+    linesize = 0.3, 
+    linetype = "dotted",
+    offset = 0.5,
+    fontface = "italic"
+  ) + 
   theme_tree2() +
   labs(title = paste("Phylogenetic Tree:", requested_species)) +
-  xlim(0, max_height + x_extra)
+  xlim(0, max_height + x_extra) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.text.x = element_text(size = 12),
+    plot.margin = margin(20, 120, 20, 20)
+  )
 
-ggsave(visual_output, plot = p, width = 12, height = 12)
+plot_height <- max(8, num_tips * 0.35)
+
+ggsave(visual_output, plot = p, width = 14, height = plot_height, dpi = 300)
 cat("Plot saved to:", visual_output, "\n")
