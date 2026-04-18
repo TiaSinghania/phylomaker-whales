@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Script Name: generate_tree.R
-# Author: Karen Wu
+# Author: Karen Wu, Samanvita Singhania
 #
 # Input:
 #   First argument: megatree category 
